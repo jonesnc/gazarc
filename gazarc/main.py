@@ -119,7 +119,7 @@ def get_torrent_folder_name(torrent):
 
 
 @click.command()
-@click.option('--path', '-p', required=True, type=str)
+@click.option('--path', '-p', default='.', type=str)
 def main(path):
     ops_handle = whatapi2.WhatAPI(**orpheus_api_params)
     red_handle = whatapi2.WhatAPI(**redacted_api_params)
