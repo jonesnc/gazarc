@@ -1,6 +1,8 @@
 import re
 import subprocess
+from typing import Literal
 
+TRACKERS = Literal["OPS", "RED"]
 
 def torrentcheck(path, torrent_file_name):
     """Return True if torrent file passes torrentcheck, else return False."""
@@ -22,7 +24,7 @@ def torrentcheck(path, torrent_file_name):
     return 'torrent is good' in str_output
 
 
-def get_torrent_tracker(path, torrent_name):
+def get_torrent_tracker(path, torrent_name) -> TRACKERS:
     sp = subprocess.Popen(
         [
             'transmission-show',

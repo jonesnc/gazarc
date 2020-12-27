@@ -5,8 +5,10 @@ import pickle
 import click
 
 from gazarc import whatapi2
-from gazarc.torrentcheck import (get_torrent_id, get_torrent_tracker,
+from gazarc.torrentcheck import (TRACKERS, get_torrent_id, get_torrent_tracker,
                                  torrentcheck)
+
+DEFAULT_TRACKER_FOLDER_NAME: TRACKERS = "RED"
 
 try:
     red_cookies = pickle.load(
