@@ -66,5 +66,6 @@ Note: This script has only been run and tested on Python 3.8. It may run on earl
 
 ## TODO
 
+- Publish to PyPI
 - Customizable template (Jinja template?)
 - Support using a single tracker (using both RED *and* OPS at the same time is the only supported configuration)
