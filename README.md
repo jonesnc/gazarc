@@ -7,7 +7,7 @@ When executed, it will do the following:
 - Check that torrent data is valid. If some torrent data is missing, stop and quit
 - Rename the torrent directory to include release info
 - Download torrent info and save as a JSON file
-- Rename the `.torrent` file to include the torrent abbreviation (`OPS` or `RED`)
+- Rename the `.torrent` file to include the tracker abbreviation (`OPS` or `RED`)
 
 Only Redacted and Orpheus are currently supported.
 
