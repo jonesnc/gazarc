@@ -69,9 +69,12 @@ def get_torrent_folder_name(torrent):
         media = torrent['response']['torrent']['media']
         label = torrent['response']['torrent']['remasterRecordLabel'].replace(
             '/', '-')
-        catalog_number = (torrent['response']['torrent']
-                          ['remasterCatalogueNumber']).replace(
-            '/', '-')
+        if torrent['response']['torrent']['remasterCatalogueNumber']:
+            catalog_number = (torrent['response']['torrent']
+                              ['remasterCatalogueNumber']).replace(
+                '/', '-')
+        else:
+            catalog_number = None
         if (
             torrent['response']['torrent']['remasterYear'] and
             torrent['response']['torrent']['remasterYear'] !=
@@ -92,9 +95,12 @@ def get_torrent_folder_name(torrent):
         year = torrent['response']['group']['year']
         media = torrent['response']['torrent']['media']
         label = torrent['response']['group']['recordLabel'].replace('/', '-')
-        catalog_number = (torrent['response']['group']
-                          ['catalogueNumber']).replace(
-            '/', '-')
+        if torrent['response']['group']['catalogueNumber']:
+            catalog_number = (torrent['response']['group']
+                              ['catalogueNumber']).replace(
+                '/', '-')
+        else:
+            catalog_number = None
         remaster_text = None
 
     format_ = torrent['response']['torrent']['format']
