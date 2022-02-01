@@ -13,45 +13,15 @@ from gazarc.torrentcheck import (TRACKERS, get_torrent_id, get_torrent_tracker,
 
 DEFAULT_TRACKER_FOLDER_NAME: TRACKERS = "RED"
 
-try:
-    red_cookies = pickle.load(
-        open(os.path.expanduser('~/.gazarc/red-cookies.dat'), 'rb'))
-except (FileNotFoundError, EOFError):
-    pickle.dump(
-        {},
-        open(os.path.expanduser('~/.gazarc/red-cookies.dat'), 'wb')
-    )
-    red_cookies = pickle.load(
-        open(os.path.expanduser('~/.gazarc/red-cookies.dat'), 'rb'))
-
-try:
-    ops_cookies = pickle.load(
-        open(os.path.expanduser('~/.gazarc/ops-cookies.dat'), 'rb'))
-except (FileNotFoundError, EOFError):
-    pickle.dump(
-        {},
-        open(os.path.expanduser('~/.gazarc/ops-cookies.dat'), 'wb')
-    )
-    ops_cookies = pickle.load(
-        open(os.path.expanduser('~/.gazarc/ops-cookies.dat'), 'rb'))
-
 redacted_api_params = {
-    'username': os.environ.get('RED_USER'),
-    'password': os.environ.get('RED_PASS'),
-    'server': 'https://redacted.ch',
+    'tracker': 'RED',
+    'config_file': '/Users/nathanjones/gazarc.ini',
 }
 
 orpheus_api_params = {
-    'username': os.environ.get('OPS_USER'),
-    'password': os.environ.get('OPS_PASS'),
-    'server': 'https://orpheus.network'
+    'tracker': 'OPS',
+    'config_file': '/Users/nathanjones/gazarc.ini',
 }
-
-if red_cookies:
-    redacted_api_params['cookies'] = red_cookies
-
-if ops_cookies:
-    orpheus_api_params['cookies'] = ops_cookies
 
 
 def get_torrent_folder_name(torrent):
@@ -136,12 +106,6 @@ def get_torrent_folder_name(torrent):
 def main(path):
     ops_handle = whatapi2.WhatAPI(**orpheus_api_params)
     red_handle = whatapi2.WhatAPI(**redacted_api_params)
-    pickle.dump(
-        red_handle.session.cookies,
-        open(os.path.expanduser('~/.gazarc/red-cookies.dat'), 'wb'))
-    pickle.dump(
-        ops_handle.session.cookies,
-        open(os.path.expanduser('~/.gazarc/ops-cookies.dat'), 'wb'))
     full_path = os.path.abspath(path)
     click.echo(f'running at path: {full_path}')
     for root, dirs, files in os.walk(full_path, topdown=False):
