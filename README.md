@@ -17,25 +17,17 @@ Only Redacted and Orpheus are currently supported.
 
 - [torrentcheck](https://github.com/ximellon/torrentcheck). Make sure you can run the `torrentcheck` binary in your shell.
 - `Python3`, `pip`
-- Make sure the `~/.gazarc` directory exists. If it doesn't, run:
+- Create a `~/.gazarc.ini` file with these contents:
 
-```bash
-mkdir ~/.gazarc
+```ini
+[OPS]
+api_key = 123abc
+
+[RED]
+api_key = 123abc
 ```
 
-- Add your tracker credentials to your environment variables. In bash, add the following to your `~/.bashrc` file:
-
-```bash
-export OPS_USER=username
-export OPS_PASS=password
-export RED_USER=username
-export RED_PASS=password
-```
-
-To load your `~/.bashrc` into your current bash session, run `. ~/.bashrc` as a command in your bash shell.
-
-Other shells (like `fish`) are supported, as long as you set the same environment variables above in your shell.
-
+Replace `123abc` with your API key.
 
 ### Install
 
