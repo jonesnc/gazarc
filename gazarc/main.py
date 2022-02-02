@@ -13,14 +13,22 @@ from gazarc.torrentcheck import (TRACKERS, get_torrent_id, get_torrent_tracker,
 
 DEFAULT_TRACKER_FOLDER_NAME: TRACKERS = "RED"
 
+CONFIG_FILE_NAME = '.gazarc.ini'
+
 redacted_api_params = {
     'tracker': 'RED',
-    'config_file': '/Users/nathanjones/gazarc.ini',
+    'config_file': os.path.join(
+        os.path.expanduser('~'),
+        CONFIG_FILE_NAME
+    )
 }
 
 orpheus_api_params = {
     'tracker': 'OPS',
-    'config_file': '/Users/nathanjones/gazarc.ini',
+    'config_file': os.path.join(
+        os.path.expanduser('~'),
+        CONFIG_FILE_NAME
+    )
 }
 
 
