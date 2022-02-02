@@ -41,9 +41,9 @@ class WhatAPI:
 
         # get the api_key from the config file
         api_key = config[tracker]['api_key']
-
-        headers['Authorization'] = api_key
-        self.session.headers = headers
+        self.session.headers.update({
+            'Authorization': api_key
+        })
 
 
     def get_torrent(self, torrent_id):
