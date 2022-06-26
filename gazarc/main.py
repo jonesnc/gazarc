@@ -45,15 +45,12 @@ def get_torrent_folder_name(torrent):
         year = torrent['response']['group']['year']
         media = torrent['response']['torrent']['media']
         if torrent['response']['torrent']['remasterRecordLabel']:
-            label = (
-                torrent['response']['torrent']['remasterRecordLabel']
-                .replace('/', '-'))
+            label = torrent['response']['torrent']['remasterRecordLabel']
         else:
             label = None
         if torrent['response']['torrent']['remasterCatalogueNumber']:
             catalog_number = (torrent['response']['torrent']
-                              ['remasterCatalogueNumber']).replace(
-                '/', '-')
+                              ['remasterCatalogueNumber'])
         else:
             catalog_number = None
         if (
@@ -64,28 +61,28 @@ def get_torrent_folder_name(torrent):
             if torrent['response']['torrent']['remasterTitle']:
                 remaster_text = (
                     f" ({torrent['response']['torrent']['remasterYear']} "
-                    f"{torrent['response']['torrent']['remasterTitle']})").replace('/', '-')
+                    f"{torrent['response']['torrent']['remasterTitle']})"
+                )
             else:
                 remaster_text = (
                     f" ({torrent['response']['torrent']['remasterYear']} "
-                    "Reissue)").replace('/', '-')
+                    "Reissue)")
         else:
             remaster_text = None
 
     else:
         year = torrent['response']['group']['year']
         media = torrent['response']['torrent']['media']
-        label = torrent['response']['group']['recordLabel'].replace('/', '-')
+        label = torrent['response']['group']['recordLabel']
         if torrent['response']['group']['catalogueNumber']:
             catalog_number = (torrent['response']['group']
-                              ['catalogueNumber']).replace(
-                '/', '-')
+                              ['catalogueNumber'])
         else:
             catalog_number = None
         remaster_text = None
 
     format_ = torrent['response']['torrent']['format']
-    title = torrent['response']['group']['name'].replace('/', '-')
+    title = torrent['response']['group']['name']
 
     if torrent['response']['torrent']['encoding'] != 'Lossless':
         encoding = f" {torrent['response']['torrent']['encoding']}"
@@ -95,6 +92,7 @@ def get_torrent_folder_name(torrent):
     folder_name = (
         f'{artist} - {year} - {title} - [{media}{encoding}] [{format_}]'
     )
+    folder_name = folder_name.replace('/', '-')
     if torrent['response']['torrent']['hasLog']:
         log_score = torrent['response']['torrent']['logScore']
         folder_name += f' (Log {log_score}%)'
