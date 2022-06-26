@@ -92,7 +92,6 @@ def get_torrent_folder_name(torrent):
     folder_name = (
         f'{artist} - {year} - {title} - [{media}{encoding}] [{format_}]'
     )
-    folder_name = folder_name.replace('/', '-')
     if torrent['response']['torrent']['hasLog']:
         log_score = torrent['response']['torrent']['logScore']
         folder_name += f' (Log {log_score}%)'
@@ -102,6 +101,8 @@ def get_torrent_folder_name(torrent):
         folder_name += f' {{{label}}}'
     if catalog_number:
         folder_name += f' {{{catalog_number}}}'
+
+    folder_name = folder_name.replace('/', '-')
 
     return folder_name
 
