@@ -1,11 +1,10 @@
 import html
 import json
 import os
-import pickle
 import random
 
 import click
-from PyInquirer import prompt
+from rich.prompt import Prompt
 
 from gazarc import whatapi2
 from gazarc.torrentcheck import (TRACKERS, get_torrent_id, get_torrent_tracker,
@@ -185,24 +184,10 @@ def main(path):
                 new_folder_name = tracker_folder_names[
                     DEFAULT_TRACKER_FOLDER_NAME]
             else:
-                questions = [
-                    {
-                        'type': 'list',
-                        'name': 'tracker',
-                        'message': 'Select your preferred folder name',
-                        'choices': [
-                            {
-                                'key': tracker_name,
-                                'value': folder_name,
-                                'name': f'{tracker_name}: {folder_name}'
-                            }
-                            for tracker_name, folder_name
-                            in tracker_folder_names.items()
-                        ]
-                    }
-                ]
-                answer = prompt(questions)
-                new_folder_name = answer['tracker']
+                new_folder_name = Prompt(
+                    "Select your preferred folder name",
+                    choices=[list(tracker_folder_names.values())]
+                )
 
         new_folder_absolute = os.path.join(
             # parent dir of torrent_dir
