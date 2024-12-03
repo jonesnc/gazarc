@@ -11,7 +11,7 @@ headers = {
 
 servers = {
     'OPS': 'https://orpheus.network',
-    'RED': 'https://redacted.ch',
+    'RED': 'https://redacted.sh',
 }
 
 class LoginException(Exception):
