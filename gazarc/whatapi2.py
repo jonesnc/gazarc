@@ -56,7 +56,6 @@ class WhatAPI:
 
     def request(self, action, **kwargs):
         """Make an AJAX request at a given action page."""
-        print("Making request with params:", kwargs)
         ajaxpage = self.server + "/ajax.php"
         params = {"action": action}
         params.update(kwargs)
