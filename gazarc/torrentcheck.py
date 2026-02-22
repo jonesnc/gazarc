@@ -4,43 +4,39 @@ from typing import Literal
 
 TRACKERS = Literal["OPS", "RED"]
 
+
 def torrentcheck(path, torrent_file_name):
     """Return True if torrent file passes torrentcheck, else return False."""
+    # fmt: off
     sp = subprocess.Popen(
-        [
-            'torrentcheck',
-            '-p',
-            path,
-            '-t',
-            torrent_file_name
-        ],
-        cwd=path,
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT
+        ["torrentcheck", "-p", path, "-t", torrent_file_name],
+        cwd    = path,
+        shell  = False,
+        stdout = subprocess.PIPE,
+        stderr = subprocess.STDOUT,
     )
+    # fmt: on
     output, _ = sp.communicate()
-    str_output = output.decode('utf-8')
-    return 'torrent is good' in str_output
+    str_output = output.decode("utf-8")
+    return "torrent is good" in str_output
 
 
 def get_torrent_tracker(path, torrent_name) -> TRACKERS:
+    # fmt: off
     sp = subprocess.Popen(
-        [
-            'transmission-show',
-            torrent_name
-        ],
-        cwd=path,
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT
+        ["transmission-show", torrent_name],
+        cwd    = path,
+        shell  = False,
+        stdout = subprocess.PIPE,
+        stderr = subprocess.STDOUT,
     )
+    # fmt: on
     output, _ = sp.communicate()
-    str_output = output.decode('utf-8')
-    tracker = 'RED' if 'flacsfor.me' in str_output else 'OPS'
+    str_output = output.decode("utf-8")
+    tracker = "RED" if "flacsfor.me" in str_output else "OPS"
     return tracker
 
 
 def get_torrent_id(torrent_name):
-    match = re.search(r'(\d*).torrent', torrent_name)
+    match = re.search(r"(\d*).torrent", torrent_name)
     return match.group(1)

@@ -3,16 +3,19 @@ import time
 
 import requests
 
+# fmt: off
 headers = {
-    'Content-type': 'application/x-www-form-urlencoded',
-    'Accept-Charset': 'utf-8',
-    'User-Agent': 'whatapi [isaaczafuta]'
+    "Content-type"   : "application/x-www-form-urlencoded",
+    "Accept-Charset" : "utf-8",
+    "User-Agent"     : "whatapi [isaaczafuta]",
 }
 
 servers = {
-    'OPS': 'https://orpheus.network',
-    'RED': 'https://redacted.sh',
+    "OPS" : "https://orpheus.network",
+    "RED" : "https://redacted.sh",
 }
+# fmt: on
+
 
 class LoginException(Exception):
     pass
@@ -35,34 +38,27 @@ class WhatAPI:
         config = configparser.ConfigParser()
         config.read(config_file)
         if tracker not in config.sections():
-            raise ConfigException((
-                'Invalid config file! Tracker section not found in config '
-                'file.'))
+            raise ConfigException("Invalid config file! Tracker section not found in config file.")
 
         # get the api_key from the config file
-        api_key = config[tracker]['api_key']
-        self.session.headers.update({
-            'Authorization': api_key
-        })
-
+        api_key = config[tracker]["api_key"]
+        self.session.headers.update({"Authorization": api_key})
 
     def get_torrent(self, torrent_id):
         """Download the torrent at torrent_id using the authkey and passkey."""
-        torrentpage = self.server + '/ajax.php'
-        params = {'action': 'download', 'id': torrent_id}
+        torrentpage = self.server + "/ajax.php"
+        params = {"action": "download", "id": torrent_id}
         r = self.session.get(torrentpage, params=params, allow_redirects=False)
         time.sleep(2)
-        if (
-            r.status_code == 200 and
-            'application/x-bittorrent' in r.headers['content-type']
-        ):
+        if r.status_code == 200 and "application/x-bittorrent" in r.headers["content-type"]:
             return r.content
         return None
 
     def request(self, action, **kwargs):
         """Make an AJAX request at a given action page."""
-        ajaxpage = self.server + '/ajax.php'
-        params = {'action': action}
+        print("Making request with params:", kwargs)
+        ajaxpage = self.server + "/ajax.php"
+        params = {"action": action}
         params.update(kwargs)
 
         r = self.session.get(ajaxpage, params=params, allow_redirects=False)
